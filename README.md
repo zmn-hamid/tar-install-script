@@ -4,6 +4,15 @@ A simple, user-local installer for Linux applications distributed as `.tar.gz`, 
 
 `tar-install` lets you install portable Linux applications without `sudo`, while automatically creating application launchers or CLI commands.
 
+# Quick Guide
+
+clone the repo then run:
+
+```bash
+./install.sh
+tar-install app.tar.gz
+```
+
 ## Features
 
 * Install applications without root access
