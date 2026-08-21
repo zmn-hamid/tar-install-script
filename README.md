@@ -28,32 +28,78 @@ A simple, user-local installer for Linux applications distributed as `.tar.gz`, 
 
 ## Installation
 
-Clone or download the script, then place it in `~/.local/bin`:
+Clone the repository:
 
 ```bash
-mkdir -p ~/.local/bin
-cp tar-install ~/.local/bin/tar-install
-chmod +x ~/.local/bin/tar-install
+git clone <repository-url>
+cd tar-install
 ```
 
-Make sure `~/.local/bin` is in your `PATH`:
+Run the installer:
 
 ```bash
-echo "$PATH" | grep -q "$HOME/.local/bin" || \
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+./install.sh
 ```
 
-Reload your shell:
+The installer will:
 
-```bash
-source ~/.bashrc
+* Install `tar-install` to `~/.local/bin/`
+* Make it executable
+* Add `~/.local/bin` to your `PATH` if necessary
+* Detect Bash and Zsh automatically
+* Update an existing installation if `tar-install` is already installed
+
+### Bash
+
+If Bash is detected, the installer adds the PATH configuration to:
+
+```text
+~/.bashrc
 ```
 
-Verify:
+### Zsh
+
+If Zsh is detected, it adds the PATH configuration to:
+
+```text
+~/.zshrc
+```
+
+For unsupported shells, the installer will show the PATH configuration that needs to be added manually.
+
+After installation, restart your shell or source its configuration file.
+
+Verify the installation:
 
 ```bash
 tar-install --help
 ```
+
+## Updating
+
+To update an existing installation, get the latest version of the repository and run:
+
+```bash
+./install.sh
+```
+
+If `tar-install` is already installed, the installer will ask whether you want to update it.
+
+The update only replaces the `tar-install` executable. Applications previously installed using `tar-install` are not affected.
+
+## Uninstallation
+
+To uninstall `tar-install itself:
+
+```bash
+./install.sh --uninstall
+```
+
+This removes the `tar-install` executable but **does not remove applications installed with it**.
+
+Previously installed applications remain untouched.
+
+The PATH configuration is also intentionally left in your shell configuration so reinstalling `tar-install` does not require modifying it again.
 
 ## Installing a GUI application
 
@@ -312,11 +358,9 @@ tar-install remove docker-tui
 * Bash
 * `tar`
 * `find`
-* `sed`
 * `grep`
 * `cp`
 * `ln`
-* `file`
 
 For `.zip` archives:
 
@@ -361,4 +405,4 @@ When an archive contains its own installer, `tar-install` gives you the option t
 
 ## License
 
-MIT License. Detail in [LICENSE.md](./LICENSE.md)
+MIT License. See [LICENSE.md](./LICENSE.md).
